@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 
 export function Navbar() {
+  const { cartCount } = useCart()
+
   return (
     <header className="navbar">
       <div className="navbar__inner">
         <NavLink to="/" className="navbar__brand">
-          Goods 2 U
+          TechStore
         </NavLink>
 
         <nav className="navbar__nav">
@@ -26,6 +29,7 @@ export function Navbar() {
             }
           >
             Cart
+            <span className="navbar__cart-count">{cartCount}</span>
           </NavLink>
         </nav>
       </div>
