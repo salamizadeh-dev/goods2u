@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ProductDetailsCard } from '../../components/ecommerce/ProductDetailsCard'
 import { EmptyState } from '../../components/ui/EmptyState'
@@ -9,6 +9,7 @@ import { products } from '../../data/products'
 export function ProductDetailsPage() {
   const { slug } = useParams()
   const { addToCart } = useCart()
+  const [quantity, setQuantity] = useState(1)
 
   const product = useMemo(() => {
     return products.find((item) => item.slug === slug)
@@ -30,6 +31,20 @@ export function ProductDetailsPage() {
     )
   }
 
+  function handleDecreaseQuantity() {
+    setQuantity((current) => Math.max(1, current - 1))
+  }
+
+  function handleIncreaseQuantity() {
+    setQuantity((current) => current + 1)
+  }
+
+  function handleAddToCart() {
+    if (!product) return
+    addToCart(product, quantity)
+    setQuantity(1)
+  }
+
   return (
     <section className="page">
       <PageSectionHeader
@@ -39,7 +54,10 @@ export function ProductDetailsPage() {
 
       <ProductDetailsCard
         product={product}
-        onAddToCart={() => addToCart(product)}
+        quantity={quantity}
+        onDecreaseQuantity={handleDecreaseQuantity}
+        onIncreaseQuantity={handleIncreaseQuantity}
+        onAddToCart={handleAddToCart}
       />
     </section>
   )
