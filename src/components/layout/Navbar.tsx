@@ -7,11 +7,17 @@ export function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar__inner">
-        <NavLink to="/" className="navbar__brand">
-          TechStore
-        </NavLink>
+        <div className="navbar__left">
+          <NavLink to="/" className="navbar__brand">
+            <span className="navbar__brand-mark">T</span>
+            <span className="navbar__brand-text">
+              <span className="navbar__brand-name">TechStore</span>
+              <span className="navbar__brand-subtitle">Modern desk essentials</span>
+            </span>
+          </NavLink>
+        </div>
 
-        <nav className="navbar__nav">
+        <nav className="navbar__nav" aria-label="Main navigation">
           <NavLink
             to="/"
             end
@@ -28,8 +34,10 @@ export function Navbar() {
               isActive ? 'navbar__link navbar__link--active' : 'navbar__link'
             }
           >
-            Cart
-            <span className="navbar__cart-count">{cartCount}</span>
+            <span>Cart</span>
+            <span className="navbar__cart-count" aria-label={`${cartCount} items in cart`}>
+              {cartCount}
+            </span>
           </NavLink>
         </nav>
       </div>
