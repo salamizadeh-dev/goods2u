@@ -43,7 +43,16 @@ export function ProductsPage() {
       ) : (
         <EmptyState
           title="No products found"
-          description="Try a different category selection."
+          description="There are no products in this category right now. Try another category to explore more items."
+          action={
+            <button
+              type="button"
+              className="button button--secondary"
+              onClick={() => setSelectedCategory('All')}
+            >
+              View all products
+            </button>
+          }
         />
       )}
     </section>

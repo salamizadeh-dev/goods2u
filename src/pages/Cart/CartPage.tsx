@@ -54,12 +54,13 @@ export function CartPage() {
         <div className="cart-page__empty">
           <EmptyState
             title="Your cart is empty"
-            description="Browse products and add items to start building your order."
+            description="You haven’t added any items yet. Browse the store and add products to start building your order."
+            action={
+              <Link to="/" className="button button--secondary">
+                Explore products
+              </Link>
+            }
           />
-
-          <Link to="/" className="cart-page__continue-link cart-page__continue-link--centered">
-            Explore products
-          </Link>
         </div>
       )}
     </section>
