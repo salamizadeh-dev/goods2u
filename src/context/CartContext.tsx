@@ -12,7 +12,7 @@ interface CartContextValue {
   cartItems: CartItem[]
   cartCount: number
   subtotal: number
-  addToCart: (product: Product) => void
+  addToCart: (product: Product, quantity?: number) => void
   increaseQuantity: (productId: string) => void
   decreaseQuantity: (productId: string) => void
   removeFromCart: (productId: string) => void
@@ -27,7 +27,7 @@ interface CartProviderProps {
 export function CartProvider({ children }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
 
-  function addToCart(product: Product) {
+  function addToCart(product: Product, quantity = 1) {
     setCartItems((currentItems) => {
       const existingItem = currentItems.find(
         (item) => item.product.id === product.id,
@@ -36,12 +36,12 @@ export function CartProvider({ children }: CartProviderProps) {
       if (existingItem) {
         return currentItems.map((item) =>
           item.product.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + quantity }
             : item,
-        )
+          )
       }
 
-      return [...currentItems, { product, quantity: 1 }]
+      return [...currentItems, { product, quantity }]
     })
   }
 
