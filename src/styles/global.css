@@ -975,5 +975,62 @@ textarea {
 
   .navbar__brand-subtitle {
     font-size: 0.75rem;
+}
+
+.products-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sort-select {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 220px;
+}
+
+.sort-select__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.sort-select__control {
+  min-height: 44px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #111827;
+  padding: 0.75rem 0.95rem;
+  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.sort-select__control:hover {
+  border-color: #9ca3af;
+}
+
+.sort-select__control:focus-visible {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+}
+
+@media (max-width: 640px) {
+  .products-toolbar {
+    align-items: stretch;
+  }
+
+  .sort-select {
+    width: 100%;
+  }
+
+  .sort-select__control {
+    width: 100%;
   }
 }
