@@ -15,8 +15,9 @@ export function QuantityControl({
         type="button"
         className="quantity-control__button"
         onClick={onDecrease}
+        aria-label="Decrease quantity"
       >
-        -
+        −
       </button>
 
       <span className="quantity-control__value">{quantity}</span>
@@ -25,6 +26,7 @@ export function QuantityControl({
         type="button"
         className="quantity-control__button"
         onClick={onIncrease}
+        aria-label="Increase quantity"
       >
         +
       </button>
