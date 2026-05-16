@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -20,12 +21,39 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | undefined>(undefined)
 
+const CART_STORAGE_KEY = 'techstore-cart'
+
 interface CartProviderProps {
   children: ReactNode
 }
 
+function readStoredCart(): CartItem[] {
+  try {
+    const storedCart = localStorage.getItem(CART_STORAGE_KEY)
+
+    if (!storedCart) return []
+
+    const parsedCart = JSON.parse(storedCart) as CartItem[]
+
+    if (!Array.isArray(parsedCart)) return []
+
+    return parsedCart
+  } catch (error) {
+    console.error('Failed to read cart from localStorage:', error)
+    return []
+  }
+}
+
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => readStoredCart())
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems))
+    } catch (error) {
+      console.error('Failed to save cart to localStorage:', error)
+    }
+  }, [cartItems])
 
   function addToCart(product: Product, quantity = 1) {
     setCartItems((currentItems) => {
@@ -38,7 +66,7 @@ export function CartProvider({ children }: CartProviderProps) {
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item,
-          )
+        )
       }
 
       return [...currentItems, { product, quantity }]
